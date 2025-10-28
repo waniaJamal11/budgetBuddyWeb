@@ -1,0 +1,26 @@
+{
+  "name": "budgetbuddy",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waniaJamal11/budgetBuddyWeb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waniaJamal11/budgetBuddyWeb/issues"
+  },
+  "homepage": "https://github.com/waniaJamal11/budgetBuddyWeb#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}
