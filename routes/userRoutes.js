@@ -1,8 +1,8 @@
 import express from "express";
-const router= express.Router();
+const router = express.Router();
+import userController from "../controllers/userController.js";
 
-router.get("/",(req, res) => {
-  res.render('index', { title: 'Budget Buddy' });
-});
+router.get("/", userController.landingPage);
+
 
 export default router;
