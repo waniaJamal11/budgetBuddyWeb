@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Budget Buddy</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/signupStyle.css">
+  <link rel="stylesheet" href="css/common.css">
+
+</head>
+
+<body class="backgroundColor d-flex justify-content-center align-items-center min-vh-100">
+<%-include("../partials/flashMessages.ejs") %>
+          <div
+            class="Contain shadow p-4 d-flex flex-column align-items-center justify-content-center text-center">
+            <h1 class="primaryColorText mt-3 mb-4">Create Account</h1>
+
+            <form action="/signupUser" method="post" class="w-100" style="max-width: 400px;">
+              <div class="mb-3">
+                <input type="text" name="name" class="form-control py-2 rounded-pill border-0 shadow-sm"
+                  placeholder="Full Name">
+              </div>
+
+              <div class="mb-3">
+                <input type="email" name="email" class="form-control py-2 rounded-pill border-0 shadow-sm"
+                  placeholder="Email">
+              </div>
+
+              <div class="mb-3">
+                <input type="password" name="password" class="form-control py-2 rounded-pill border-0 shadow-sm"
+                  placeholder="Password">
+              </div>
+
+              <div class="mb-3">
+                <input type="password" name="confirmPassword" class="form-control py-2 rounded-pill border-0 shadow-sm"
+                  placeholder="Confirm Password">
+              </div>
+
+              <button type="submit" class="btn btn-primary rounded-pill py-2 px-5 fw-semibold shadow-sm hover-grow">Sign
+                Up</button>
+
+              <p class="text-dark mt-4 small">
+                Already have an account?
+                <a href="/" class="loginText text-decoration-none">Login</a>
+              </p>
+            </form>
+          </div>
+          <script src="/js/script.js"></script>
+</body>
+
+</html>

@@ -1,15 +1,17 @@
 import express from "express";
-const app = express();
 import dotenv from "dotenv";
+import config from "./middlewares/configMiddleware.js";
+import connectDB from "./configDB/db.js";
+const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
-import router from "./routes/userRoutes.js"; 
-import config from "./middlewares/configMiddleware.js";
+const url = process.env.DATABASE;
+const secretKey = process.env.SECRET_KEY;
 
 function startServer() {
-    config(app, express);
-    app.use(router);
-    app.listen(PORT, function(){
+    connectDB(url);
+    config(app, express, secretKey);
+    app.listen(PORT, function () {
         console.log(`The server is running at http://localhost:${PORT}`);
     })
 }
