@@ -1,0 +1,27 @@
+.Contain {
+  width: 90vw;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+.Contain:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.loginText {
+  color: #da6220;
+  font-weight: 700;
+}
+.loginText:hover {
+  color: #145da0 !important;
+}
+
+@media (max-width: 768px) {
+  .landingContain {
+    margin: 20px;
+    padding: 30px 20px;
+  }
+}
