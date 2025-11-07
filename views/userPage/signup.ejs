@@ -12,11 +12,11 @@
 
 </head>
 
-<body class="backgroundColor d-flex justify-content-center align-items-center min-vh-100">
+<body class="bg d-flex justify-content-center align-items-center min-vh-100">
 <%-include("../partials/flashMessages.ejs") %>
           <div
             class="Contain shadow p-4 d-flex flex-column align-items-center justify-content-center text-center">
-            <h1 class="primaryColorText mt-3 mb-4">Create Account</h1>
+            <h1 class="heading mt-3 mb-4">Create Account</h1>
 
             <form action="/signupUser" method="post" class="w-100" style="max-width: 400px;">
               <div class="mb-3">
@@ -42,13 +42,12 @@
               <button type="submit" class="btn btn-primary rounded-pill py-2 px-5 fw-semibold shadow-sm hover-grow">Sign
                 Up</button>
 
-              <p class="text-dark mt-4 small">
+              <p class="text-light mt-4 small">
                 Already have an account?
-                <a href="/" class="loginText text-decoration-none">Login</a>
+                <a href="/" class="anchorText text-decoration-none">Login</a>
               </p>
             </form>
           </div>
           <script src="/js/script.js"></script>
 </body>
-
 </html>

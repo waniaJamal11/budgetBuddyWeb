@@ -23,3 +23,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }, AUTO_HIDE_MS);
   });
 });
+
+//logo
+window.addEventListener("load", () => {
+  const loader = document.getElementById("logo-loader");
+
+  // Check if animation already played in this session
+  const animationPlayed = sessionStorage.getItem("logoAnimationPlayed");
+
+  if (!animationPlayed) {
+    loader.style.display = "flex";
+
+    setTimeout(() => {
+      loader.style.display = "none";
+      // Mark animation as played in this session
+      sessionStorage.setItem("logoAnimationPlayed", "true");
+    }, 2800);
+  } 
+  else {
+    // Skip loader if already played
+    loader.style.display = "none";
+  }
+});
+
+
+
+
