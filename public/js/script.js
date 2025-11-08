@@ -39,7 +39,7 @@ window.addEventListener("load", () => {
       // Mark animation as played in this session
       sessionStorage.setItem("logoAnimationPlayed", "true");
     }, 2800);
-  } 
+  }
   else {
     // Skip loader if already played
     loader.style.display = "none";
@@ -47,5 +47,43 @@ window.addEventListener("load", () => {
 });
 
 
+//pie carht
 
+const ctx = document.getElementById('expensePieChart').getContext('2d');
 
+new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ['Bills', 'Food', 'Transport', 'Others'],
+    datasets: [{
+      data: [2500, 800, 400, 300], // example values
+      backgroundColor: ['#DA6220', '#145DA0', '#F2A65A', '#7FB3D5'],
+      borderColor: '#fff',
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      datalabels: {
+        color: '#fff',
+        font: { weight: 'bold', size: 12 },
+        formatter: (value, ctx) => {
+          let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+          let percentage = ((value / sum) * 100).toFixed(0) + '%';
+          return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
+        }
+      }
+    }
+  },
+  plugins: [ChartDataLabels]
+});
+
+function selectType(value, el) {
+  // Set hidden input value
+  document.getElementById('transactionType').value = value;
+
+  // Update button text
+  document.getElementById('dropdownLabel').textContent = value;
+}
