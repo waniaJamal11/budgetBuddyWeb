@@ -1,5 +1,6 @@
 import userRoutes from "../routes/userRoutes.js";
 import pageRoutes from "../routes/pageRoutes.js"
+import categoryRoutes from "../routes/categoryRoutes.js"
 import session from "express-session";
 import flash from "connect-flash";
 
@@ -21,8 +22,9 @@ function config(app,express, secretKey) {
         next();
     })
 
-    app.use("/",userRoutes);
-    app.use("/",pageRoutes);
+    app.use(userRoutes);
+    app.use(pageRoutes);
+    app.use(categoryRoutes);
 }
 
 export default config;

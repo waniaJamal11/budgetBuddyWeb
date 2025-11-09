@@ -1,0 +1,68 @@
+body {
+  background: linear-gradient(135deg, #f4f6f9, #e8ecf3);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* main white form box */
+.Contain {
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+/* heading style */
+.heading {
+  color: #042a4e;
+  font-weight: 700;
+}
+
+/* form inputs */
+.form-control,
+.form-select {
+  background-color: #eff4f9;
+  border: none;
+  border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* stronger shadow */
+  transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 3px rgba(218, 98, 32, 0.2);
+  outline: none;
+}
+
+/* button */
+.btn-primary {
+  background-color: #da6220;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 40px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #b54e19;
+  transform: translateY(-2px);
+}
+
+/* back link */
+.anchorText {
+  color: #042a4e;
+  font-weight: 500;
+}
+
+.anchorText:hover {
+  color: #da6220;
+}
+
+.dropdown-menu {
+    border-radius: 0.75rem;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1050; /* ensures it stays above everything */
+}
