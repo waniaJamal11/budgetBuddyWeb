@@ -1,53 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Category - Budget Buddy</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/addCategoryStyle.css">
-    <link rel="stylesheet" href="/css/common.css">
-</head>
-
-<body class="d-flex justify-content-center align-items-center min-vh-100">
-    <%- include("../partials/flashMessages.ejs") %>
-        <div class="Contain shadow p-4 d-flex flex-column align-items-center justify-content-center text-center">
-            <h1 class="heading mt-3 mb-4">Add Category</h1>
-
-            <form action="/addCategory" method="POST" class="w-100" style="max-width: 400px;">
-                <div class="mb-3">
-                    <input type="text" name="name" class="form-control py-2 rounded-pill border-0 shadow-sm"
-                        placeholder="Category Name" required>
-                </div>
-
-                <div class="mb-3 position-relative dropdown">
-                    <button
-                        class="form-control form-select py-2 rounded-pill border-0 shadow-lg text-start d-flex justify-content-between align-items-center"
-                        type="button" data-bs-toggle="dropdown" id="dropdownBtn">
-                        <span id="dropdownLabel">Select Transaction Type</span>
-                    </button>
-                    <ul class="dropdown-menu w-100 shadow-lg">
-                        <li><a class="dropdown-item" href="#" onclick="selectType('Income', this)">Income</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="selectType('Expense', this)">Expense</a></li>
-                    </ul>
-                    <input type="hidden" name="transactionType" id="transactionType">
-                </div>
-                <button type="submit" class="btn btn-primary rounded-pill py-2 px-5 fw-semibold shadow-sm hover-grow">
-                    Save Category
-                </button>
-                <p class="text-light mt-4 small">
-                    <a href="/categories" class="anchorText text-decoration-none">
-                        <i class="bi bi-arrow-left me-1"></i> Back to Categories
-                    </a>
-                </p>
-            </form>
+<div id="addCategoryBox" class="confirm-box-overlay">
+  <div class="confirm-box">
+    <h4>Add Category</h4>
+    <form id="addCategoryForm" action="/addCategory" method="POST">
+      
+      <div class="mb-3 text-start fw-semibold text-dark">
+        <label for="addCategoryName" class="form-label">Category Name</label>
+        <input 
+          type="text" 
+          id="addCategoryName" 
+          name="name" 
+          class="form-control" 
+          placeholder="Enter category name" 
+          required
+        >
+      </div>
+      <div class="mb-3 text-start fw-semibold text-dark">
+        <label class="form-label">Transaction Type</label>
+        <div class="position-relative dropdown">
+          <button 
+            class="form-control form-select py-2 border-1 text-start d-flex justify-content-between align-items-center"
+            type="button" 
+            data-bs-toggle="dropdown" 
+            id="addDropdownBtn"
+          >
+            <span id="addDropdownLabel">Select Transaction Type</span>
+          </button>
+          <ul class="dropdown-menu w-100 shadow-lg">
+            <li><a class="dropdown-item" href="#" onclick="selectAddType('Income')">Income</a></li>
+            <li><a class="dropdown-item" href="#" onclick="selectAddType('Expense')">Expense</a></li>
+          </ul>
+          <input type="hidden" name="transactionType" id="addTransactionType">
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/js/script.js"></script>
-</body>
-
-</html>
+      </div>
+      <div class="confirm-buttons">
+        <button type="button" id="addCancel">Cancel</button>
+        <button type="submit" id="addSave">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
