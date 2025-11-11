@@ -18,9 +18,8 @@
                 <div class="row mb-3">
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h2 class="fw-bold text-blue headingSize">Categories</h2>
-                            <a href="/addCategories" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Add
-                                Category</a>
+                            <h2 class="fw-bold text-blue headingSize">Categories</h2>       
+                            <button id="openAddCategoryBtn" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Add Category</button>
                         </div>
                     </div>
                 </div>
@@ -38,39 +37,56 @@
                                 </thead>
                                 <tbody>
                                     <% if(category.length>0){ %>
-                                        <% category.forEach(function(catagory, index) {%>
+                                        <% category.forEach(function(category, index) {%>
                                             <tr>
                                                 <td>
                                                     <%= index+1 %>
                                                 </td>
                                                 <td>
-                                                    <%= catagory.name%>
+                                                    <%= category.name%>
                                                 </td>
                                                 <td>
-                                                    <%= catagory.transactionType.name %>
+                                                    <%= category.transactionType.name %>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-primary me-1">
+                                                    <button class="btn btn-sm btn-primary me-1 edit-btn"
+                                                        data-id="<%= category._id %>" data-name="<%= category.name %>"
+                                                        data-type="<%= category.transactionType.name %>">
                                                         <i class="bi bi-pencil"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
+
+
+
+                                                    <form action="/deleteCategory/<%= category._id%>" method="post"
+                                                        style="display: inline-block;">
+                                                        <button type="submit" class="btn btn-sm btn-danger delete-btn"
+                                                            data-name="<%= category.name %>">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             <% }); %>
                                                 <% }else{ %>
                                                     <td class="msg" colspan="4">
-                                                    <p style="color: red;">No categories found yet</p>
-                                                    <p class="text-muted">Click the "Add Category" button to get started</p>
+                                                        <p style="color: red;">No categories found yet</p>
+                                                        <p class="text-muted">Click the "Add Category" button to get
+                                                            started</p>
                                                     </td>
-                                              <% } %>
+                                                    <% } %>
                                 </tbody>
                             </table>
+                            <!-- add -->
+                            <%-include("addCategory.ejs") %>
+                                <!--update-->
+                                <%-include("editCategory.ejs") %>
                         </div>
                     </div>
                 </div>
+                <!-- delete --->
+                <%-include("deleteCategory.ejs") %>
             </main>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="/js/script.js"></script>
 </body>
 

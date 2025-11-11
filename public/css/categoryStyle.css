@@ -36,5 +36,143 @@
   font-size: 15px;
 }
 
+.confirm-box-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 30, 60, 0.45);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 
- 
+
+.confirm-box {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  max-width: 90%;
+  padding: 40px;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+.confirm-box h4 {
+  color: #0b2e52;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.confirm-box p {
+  color: #333;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.confirm-buttons button {
+  border: none;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#confirmCancel {
+  background: #ddd;
+  color: #333;
+}
+
+#confirmCancel:hover {
+  background: #ccc;
+}
+
+#confirmDelete {
+  background: linear-gradient(135deg, #da6220, #ff8a3d);
+  color: white;
+}
+
+#confirmDelete:hover {
+  background: linear-gradient(135deg, #c5571b, #ff7422);
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.confirm-buttons button#editCancel,
+.confirm-buttons button#confirmCancel {
+  background-color: #ccc;
+  color: #333;
+}
+
+.confirm-buttons button#editSave,
+.confirm-buttons button#confirmDelete {
+  background-color: #DA6220; 
+  color: #fff;
+}
+
+.confirm-buttons button:hover {
+  opacity: 0.9;
+}
+@media (max-width: 500px) {
+  .confirm-buttons {
+    flex-direction: column;
+  }
+
+  .confirm-buttons button {
+    width: 100%;
+  }
+}
+#addCategoryModal .modal-dialog {
+  max-width: 420px;
+}
+
+#addCategoryModal .modal-content {
+  border-radius: 25px !important;
+  background: linear-gradient(145deg, #ffffff, #eaf0f6);
+}
+
+#addCategoryModal input,
+#addCategoryModal button.form-select {
+  font-size: 15px;
+}
+
+#addCategoryModal .btn-primary {
+  background-color: #0a3c78;
+  border: none;
+}
+
+#addCategoryModal .btn-primary:hover {
+  background-color: #0b4d94;
+}
+
+.confirm-buttons button#editCancel,
+.confirm-buttons button#confirmCancel,
+.confirm-buttons button#addCancel {
+  background-color: #ccc;
+  color: #333;
+}
+
+.confirm-buttons button#editSave,
+.confirm-buttons button#confirmDelete,
+.confirm-buttons button#addSave {
+  background-color: #DA6220;
+  color: #fff;
+}
+
+.confirm-buttons button:hover {
+  opacity: 0.9;
+}

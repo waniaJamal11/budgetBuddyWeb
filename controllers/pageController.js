@@ -1,5 +1,4 @@
 import categoryModel from "../models/categoryModel.js";
-
 async function loginPage(req, res) {
     try {
         return res.render("userPage/login");
