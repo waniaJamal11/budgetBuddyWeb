@@ -4,6 +4,8 @@ import transactionTypeModel from "../models/transactionTypeModel.js";
 async function addCategory(req, res) {
     try {
         const { name, transactionType } = req.body;
+        const userId = req.session.user?._id;
+
         if (!name.trim() || !transactionType) {
             req.flash("error", "Please provide both Category Name and Transaction Type");
             return res.redirect("/categories");
@@ -15,16 +17,26 @@ async function addCategory(req, res) {
         }
         const existingCategory = await categoryModel.findOne({
             name: { $regex: `^${name.trim()}$`, $options: 'i' },
-            transactionType: type._id
+            transactionType: type._id,
+            userId, 
         });
+
         if (existingCategory) {
             req.flash("error", "This category already exists");
             return res.redirect("/categories");
         }
+
+        if (!userId) {
+            req.flash("error", "Please login first.");
+            return res.redirect("/");
+        }
+
         const newCategory = new categoryModel({
             name: name.trim(),
-            transactionType: type._id
+            transactionType: type._id,
+            userId
         });
+
         await newCategory.save();
         req.flash("success", "Category added successfully!");
         return res.redirect("/categories");

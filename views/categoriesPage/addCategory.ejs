@@ -1,28 +1,19 @@
-<div id="addCategoryBox" class="confirm-box-overlay">
+<div id="addCategoryBox" class="confirm-box-overlay h-4">
   <div class="confirm-box">
     <h4>Add Category</h4>
     <form id="addCategoryForm" action="/addCategory" method="POST">
-      
+
       <div class="mb-3 text-start fw-semibold text-dark">
         <label for="addCategoryName" class="form-label">Category Name</label>
-        <input 
-          type="text" 
-          id="addCategoryName" 
-          name="name" 
-          class="form-control" 
-          placeholder="Enter category name" 
-          required
-        >
+        <input type="text" id="addCategoryName" name="name" class="form-control" placeholder="Enter category name"
+          required>
       </div>
       <div class="mb-3 text-start fw-semibold text-dark">
         <label class="form-label">Transaction Type</label>
         <div class="position-relative dropdown">
-          <button 
+          <button
             class="form-control form-select py-2 border-1 text-start d-flex justify-content-between align-items-center"
-            type="button" 
-            data-bs-toggle="dropdown" 
-            id="addDropdownBtn"
-          >
+            type="button" data-bs-toggle="dropdown" id="addDropdownBtn">
             <span id="addDropdownLabel">Select Transaction Type</span>
           </button>
           <ul class="dropdown-menu w-100 shadow-lg">

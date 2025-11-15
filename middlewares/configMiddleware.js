@@ -1,6 +1,7 @@
 import userRoutes from "../routes/userRoutes.js";
 import pageRoutes from "../routes/pageRoutes.js"
 import categoryRoutes from "../routes/categoryRoutes.js"
+import transactionRoutes from "../routes/transactionRoutes.js";
 import session from "express-session";
 import flash from "connect-flash";
 
@@ -9,7 +10,7 @@ function config(app,express, secretKey) {
     app.use(express.static("public"));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-
+    
     app.use(session({
         secret: secretKey,
         resave:false,
@@ -25,6 +26,8 @@ function config(app,express, secretKey) {
     app.use(userRoutes);
     app.use(pageRoutes);
     app.use(categoryRoutes);
+    app.use(transactionRoutes);
+
 }
 
 export default config;

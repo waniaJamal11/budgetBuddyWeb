@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import config from "./middlewares/configMiddleware.js";
 import connectDB from "./configDB/db.js";
+
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
