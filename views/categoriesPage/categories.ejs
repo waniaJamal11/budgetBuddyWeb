@@ -59,7 +59,7 @@
 
                                                     <form action="/deleteCategory/<%= category._id%>" method="post"
                                                         style="display: inline-block;">
-                                                        <button type="submit" class="btn btn-sm btn-danger delete-btn"
+                                                        <button type="submit" class="btn btn-sm btn-danger delete-btn" data-type="category"
                                                             data-name="<%= category.name %>">
                                                             <i class="bi bi-trash"></i>
                                                         </button>
@@ -69,7 +69,7 @@
                                             <% }); %>
                                                 <% }else{ %>
                                                     <td class="msg" colspan="4">
-                                                        <p style="color: red;">No categories found yet</p>
+                                                        <p class="text-danger">No categories found yet</p>
                                                         <p class="text-muted">Click the "Add Category" button to get
                                                             started</p>
                                                     </td>

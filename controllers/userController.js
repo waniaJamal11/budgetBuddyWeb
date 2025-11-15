@@ -31,9 +31,18 @@ async function signUp(req, res) {
         }
         //encrypt pass
         const encryptPassword = await bcrypt.hash(password, 10);
-        await userModel.create({ name, email, password: encryptPassword });
-        req.flash("success", "Signup successfull!!");
+        const newUser = await userModel.create({ name, email, password: encryptPassword });
+
+        // auto-login after signup
+        req.session.user = {
+            _id: newUser._id,
+            name: newUser.name,
+            email: newUser.email
+        };
+
+        req.flash("success", "Signup successfull!");
         return res.redirect("/dashboard");
+
     } catch (error) {
         console.log(`Signup Error: ${error.message}`);
         req.flash("error", "Something went wrong while signup");
@@ -66,7 +75,7 @@ async function login(req, res) {
         req.flash("success", "Login Successfull!");
         return res.redirect("/dashboard");
     } catch (error) {
-        console.log(`Signup Error: ${error.message}`);
+        console.log(`Login Error: ${error.message}`);
         req.flash("error", "Something went wrong while login");
         res.redirect("/");
     }

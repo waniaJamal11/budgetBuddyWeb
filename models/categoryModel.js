@@ -10,6 +10,11 @@ const categorySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'TransactionType',
     required: true
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true
   }
 }, { timestamps: true });
 const categoryModel  = mongoose.model('category', categorySchema);

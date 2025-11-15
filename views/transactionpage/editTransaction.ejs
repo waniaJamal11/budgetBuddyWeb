@@ -1,0 +1,67 @@
+<div id="editTransactionBox" class="confirm-box-overlay">
+    <div class="confirm-box">
+
+        <h4>Edit Transaction</h4>
+
+        <form id="editTransactionForm" method="POST">
+
+            <div class="mb-3 text-start fw-semibold text-dark">
+                <label class="form-label">Amount</label>
+                <input type="number" id="editAmount" name="amount" class="form-control">
+            </div>
+
+            <div class="mb-3 text-start fw-semibold text-dark">
+                <label class="form-label">Category</label>
+
+                <div class="dropdown">
+                    <button class="form-control form-select text-start" type="button" data-bs-toggle="dropdown"
+                        id="editCategoryLabel">
+                        Select Category
+                    </button>
+
+                    <ul class="dropdown-menu w-100 shadow-lg">
+                        <% categories.forEach(cat=> { %>
+                            <li>
+                                <a class="dropdown-item" href="#"
+                                    onclick="selectEditCategory('<%= cat._id %>', '<%= cat.name %>')">
+                                    <%= cat.name %>
+                                </a>
+                            </li>
+                            <% }) %>
+                    </ul>
+
+                    <input type="hidden" name="categoryId" id="editCategoryId">
+                </div>
+            </div>
+
+            <div class="mb-3 text-start fw-semibold text-dark">
+                <label class="form-label">Transaction Type</label>
+
+                <div class="dropdown">
+                    <button class="form-control form-select text-start" type="button" data-bs-toggle="dropdown"
+                        id="editTypeLabel">
+                        Select Type
+                    </button>
+
+                    <ul class="dropdown-menu w-100 shadow-lg">
+                        <li><a class="dropdown-item" href="#" onclick="selectEditType('Income')">Income</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectEditType('Expense')">Expense</a></li>
+                    </ul>
+
+                    <input type="hidden" name="transactionType" id="editTypeValue">
+                </div>
+            </div>
+
+            <div class="mb-3 text-start fw-semibold text-dark">
+                <label class="form-label">Description</label>
+                <textarea id="editDescription" name="description" class="form-control"></textarea>
+            </div>
+
+            <div class="confirm-buttons">
+                <button type="button" id="editCancel">Cancel</button>
+                <button type="submit" id="editSave">Save</button>
+            </div>
+
+        </form>
+    </div>
+</div>
