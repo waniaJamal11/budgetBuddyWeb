@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings - Budget Buddy</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="/css/profileStyle.css">
+    <link rel="stylesheet" href="/css/common.css">
+
+</head>
+
+<body>
+    <%-include("../partials/flashMessages.ejs") %>
+        <div class="transaction-bg">
+
+            <div class="container">
+
+                <div class="profile-wrapper">
+
+                    <h2 class="profile-title">Profile Settings</h2>
+
+                    <form action="/updateProfile" method="POST">
+
+                        <div class="profile-box">
+                            <div class="profile-header">
+                                <span>Change Name</span>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="profile-content">
+                                <input name="name" type="text" value="<%= user.name %>">
+                            </div>
+                        </div>
+
+                        <div class="profile-box">
+                            <div class="profile-header">
+                                <span>Change Email</span>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="profile-content">
+                                <input name="email" type="email"  value="<%= user.email %>">
+                            </div>
+                        </div>
+
+                        <div class="profile-box">
+                            <div class="profile-header">
+                                <span>Change Password</span>
+                                <span class="arrow">▼</span>
+                            </div>
+
+                            <div class="profile-content">
+                                <input name="oldPassword" type="password" placeholder="Old password">
+                            </div>
+
+                            <div class="profile-content">
+                                <input name="newPassword" type="password" placeholder="New password">
+                            </div>
+
+                            <div class="profile-content">
+                                <input name="confirmPassword" type="password" placeholder="Confirm new password">
+                            </div>
+
+                        </div>
+
+                        <button class="save-btn" type="submit">Save</button>
+
+                    </form>
+                    <p class="text-light mt-4">
+                        <i class=" bi bi-arrow-left"></i>
+                        <a href="/dashboard" class="back"> Back to dashboard</a>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const boxes = document.querySelectorAll(".profile-box");
+
+                boxes.forEach(box => {
+                    const header = box.querySelector(".profile-header");
+
+                    header.addEventListener("click", () => {
+                        box.classList.toggle("open");
+                    });
+                });
+            });
+        </script>
+            <script src="/js/script.js"></script>
+
+
+</body>
+
+</html>

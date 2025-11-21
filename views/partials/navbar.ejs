@@ -25,13 +25,13 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#"
-            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
             Profile
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Profile Settings</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="/profileSetting">Profile Settings</a></li>
+            <li><a class="dropdown-item logout-btn" href="/logout" data-type="logout">Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -39,3 +39,4 @@
     </div>
   </div>
 </nav>
+<%-include("../userPage/logout.ejs") %>

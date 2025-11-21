@@ -11,13 +11,14 @@
                 <div class="mb-3 position-relative dropdown">
                     <button
                         class="form-control form-select py-2 border-1 text-start d-flex justify-content-between align-items-center"
-                        type="button" data-bs-toggle="dropdown" id="editDropdownBtn">
+                        type="button" data-bs-toggle="dropdown" data-bs-display="static" id="editDropdownBtn">
                         <span id="editDropdownLabel">Select Transaction Type</span>
                     </button>
-                    <ul class="dropdown-menu w-100 shadow-lg">
-                        <li><a class="dropdown-item" href="#" onclick="selectEditType('Income')">Income</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="selectEditType('Expense')">Expense</a></li>
+                    <ul class="dropdown-menu w-100 shadow-lg" id="editTypeMenu">
+                        <li><button type="button" class="dropdown-item" data-value="Income">Income</button></li>
+                        <li><button type="button" class="dropdown-item" data-value="Expense">Expense</button></li>
                     </ul>
+
                     <input type="hidden" name="transactionType" id="editTransactionType">
                 </div>
             </div>
