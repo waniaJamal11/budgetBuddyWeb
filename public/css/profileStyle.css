@@ -1,0 +1,140 @@
+/* -------------------- Full Screen Background -------------------- */
+.transaction-bg {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("/images/background.jpg") no-repeat center center/cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.transaction-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+/* -------------------- Glass Container -------------------- */
+.container {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 35px;
+  width: 650px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+/* -------------------- Profile Section -------------------- */
+.profile-wrapper {
+  width: 100%;
+}
+
+.profile-title {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 25px;
+  font-size: 26px;
+}
+
+.profile-box {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  padding: 15px 20px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  transition: 0.3s;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.arrow {
+  transition: 0.3s ease;
+  font-size: 12px;
+}
+
+.profile-box.open .arrow {
+  transform: rotate(180deg);
+  color: #da6220;
+}
+
+.profile-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.profile-box.open .profile-content {
+  max-height: 150px;
+  margin-top: 15px;
+}
+
+.profile-content input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+.profile-content input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+.save-btn {
+  display: block;
+  margin: 25px auto 0 auto;
+  background: #da6220;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 40px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+  transform: scale(1.08);
+}
+
+.back{
+  color:#177bd8;
+  text-decoration: none;
+  font-size: 14px;
+}
+.back:hover{
+color: #145DA0;;
+}
+
+i{
+  font-size: 12px;
+}
+
+.transaction-bg, 
+.transaction-bg input, 
+.transaction-bg button, 
+.transaction-bg select, 
+.transaction-bg textarea {
+    font-family: Arial, sans-serif;  /* same as other pages */
+}

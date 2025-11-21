@@ -5,28 +5,71 @@ import moment from "moment";
 
 async function loginPage(req, res) {
     try {
+        if (req.session.destroyAfterLogin) {
+            req.session.destroy(() => { });
+        }
         return res.render("userPage/login");
-    } 
-    catch (error) {
+    } catch (error) {
         console.log(`Error loading login page: ${error.message}`);
+        return res.status(500).send("Something went wrong");
     }
 }
+
 async function signupPage(req, res) {
     try {
         return res.render("userPage/signup");
-    } 
+    }
     catch (error) {
         console.log(`Error loading signup page: ${error.message}`);
     }
 }
+
 async function dashboardPage(req, res) {
-    try {
-        return res.render("dashboardPage/dashboard", { currentPage: "dashboard" });
-    } 
-    catch (error) {
-        console.log(`Error loading dashboard page: ${error.message}`);
-    }
+  try {
+    const userId = req.session.user?._id;
+    if (!userId) return res.redirect("/");
+
+    const filter = req.query.filter || "weekly"; 
+    let startDate;
+
+    if (filter === "daily") startDate = moment().startOf("day").toDate();
+    else if (filter === "weekly") startDate = moment().startOf("week").toDate();
+    else if (filter === "monthly") startDate = moment().startOf("month").toDate();
+
+    const transactions = await transactionModel
+      .find({ userId, createdAt: { $gte: startDate } })
+      .populate("categoryId transactionTypeId")
+      .lean()
+      .sort({ _id: -1 });
+
+    const categoryTotals = {};
+    transactions.forEach((tx) => {
+      if (tx.transactionTypeId?.name === "Expense") {
+        const name = tx.categoryId?.name || "Others";
+        categoryTotals[name] = (categoryTotals[name] || 0) + tx.amount;
+      }
+    });
+
+    const pieLabels = Object.keys(categoryTotals);
+    const pieData = Object.values(categoryTotals);
+
+    const allTransactions = await transactionModel.find({ userId }).populate("transactionTypeId").lean();
+    let totalBalance = 0;
+    allTransactions.forEach((tx) => {
+      if (tx.transactionTypeId?.name === "Income") totalBalance += tx.amount;
+      else if (tx.transactionTypeId?.name === "Expense") totalBalance -= tx.amount;
+    });
+
+    return res.render("dashboardPage/dashboard", { currentPage: "dashboard", user: req.session.user,transactions,totalBalance,pieLabels,pieData,filter,
+    });
+  } catch (error) {
+    console.log(`Error loading dashboard page: ${error.message}`);
+    return res.status(500).send("Something went wrong");
+  }
 }
+
+
+
 async function categoryPage(req, res) {
     try {
         const userId = req.session.user?._id;
@@ -39,7 +82,6 @@ async function categoryPage(req, res) {
         const category = await categoryModel.find({ userId }).populate("transactionType").sort({ _id: -1 });
 
         return res.render("categoriesPage/categories", { currentPage: "categories", category });
-
     }
     catch (error) {
         console.log(`Error loading categories page: ${error.message}`);
@@ -72,7 +114,7 @@ async function transactionPage(req, res) {
             return res.redirect("/transaction");
         }
 
-        // If user typed something and filter is selected
+
         if (search && filter) {
             if (filter === "category") {
                 const categories = await categoryModel.find({
@@ -109,7 +151,7 @@ async function transactionPage(req, res) {
         }
 
         return res.render("transactionPage/transaction", { currentPage: "transaction", transaction: transactions, moment, categories, search, filter, message, flag });
-    } 
+    }
     catch (error) {
         console.log(`Error loading transactions page: ${error.message}`);
     }
@@ -127,10 +169,23 @@ async function addTransactionPage(req, res) {
         const transactionType = await transactionTypesModel.find();
         return res.render("transactionPage/addTransaction", { categories, transactionType });
     }
-     catch (error) {
+    catch (error) {
         console.log(`Error loading add trasactions page: ${error.message}`);
     }
 
+}
+async function profilePage(req, res) {
+    try {
+        if (!req.session.user) {
+            req.flash("error", "Please login first");
+            return res.redirect("/");
+        }
+        const user = req.session.user;
+        return res.render("userPage/profileSettings", { user });
+
+    } catch (error) {
+        console.log(`Error loading profile setting page: ${error.message}`);
+    }
 }
 
 
@@ -140,5 +195,5 @@ export default {
     dashboardPage,
     categoryPage,
     transactionPage,
-    addTransactionPage
+    addTransactionPage, profilePage
 }

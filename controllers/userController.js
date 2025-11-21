@@ -33,7 +33,7 @@ async function signUp(req, res) {
         const encryptPassword = await bcrypt.hash(password, 10);
         const newUser = await userModel.create({ name, email, password: encryptPassword });
 
-        // auto-login after signup
+        // login directly after signup
         req.session.user = {
             _id: newUser._id,
             name: newUser.name,
@@ -71,7 +71,11 @@ async function login(req, res) {
             return res.redirect("/");
         }
         //loign
-        req.session.user = user;
+        req.session.user = {
+            _id: user._id,
+            name: user.name,
+            email: user.email
+        };
         req.flash("success", "Login Successfull!");
         return res.redirect("/dashboard");
     } catch (error) {
@@ -80,8 +84,89 @@ async function login(req, res) {
         res.redirect("/");
     }
 }
+async function logout(req, res) {
+    try {
+        if (req.session.user) {
+            req.flash("success", "Logout successfully");
+
+            // Mark session to destroy after redirect
+            req.session.destroyAfterLogin = true;
+            return res.redirect("/");
+        } else {
+            return res.redirect("/");
+        }
+    } catch (error) {
+        console.log(`Logout Error: ${error.message}`);
+        req.flash("error", "Something went wrong while logging out");
+        return res.redirect("/dashboard");
+    }
+}
+async function profile(req, res) {
+    try {
+        const userId = req.session.user._id;
+        const { name, email, oldPassword, newPassword, confirmPassword } = req.body;
+
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            req.flash("error", "User not found");
+            return res.redirect("/profileSetting");
+        }
+
+        let updated = false;
+
+        if (name && name.trim() !== "" && name.trim() !== user.name) {
+            user.name = name.trim();
+            updated = true;
+        }
+
+        if (email && email.trim() !== "" && email.trim() !== user.email) {
+            user.email = email.trim();
+            updated = true;
+        }
+
+        if (oldPassword || newPassword || confirmPassword) {
+            const isMatch = await bcrypt.compare(oldPassword, user.password);
+            if (!isMatch) {
+                req.flash("error", "Old password incorrect");
+                return res.redirect("/profileSetting");
+            }
+
+            if (newPassword !== confirmPassword) {
+                req.flash("error", "New passwords do not match");
+                return res.redirect("/profileSetting");
+            }
+
+            const hashed = await bcrypt.hash(newPassword, 10);
+            user.password = hashed;
+            updated = true;
+        }
+
+        if (updated) {
+            const updatedUser = await user.save();
+            req.session.user = {
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email
+            };
+            req.flash("success", "Profile updated successfully!");
+        }
+
+        return res.redirect("/profileSetting");
+
+
+    } catch (error) {
+        console.log(`Updating profile error: ${error.message}`);
+        req.flash("error", "Something went wrong while updating profile");
+        return res.redirect("/profileSetting");
+    }
+}
+
+
 
 export default {
     signUp,
     login,
+    logout,
+    profile
 };

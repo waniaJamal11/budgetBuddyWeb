@@ -72,13 +72,13 @@ async function editTransaction(req, res) {
             return res.redirect("/");
         }
 
-        const { amount, categoryId, transactionType, description} = req.body;
+        const { amount, categoryId, transactionType, description } = req.body;
 
         if (!amount || !categoryId || !transactionType) {
             req.flash("error", "Please fill all required fields");
             return res.redirect("/transaction");
         }
-        
+
         const category = await categoryModel.findOne({ _id: categoryId, userId });
         if (!category) {
             req.flash("error", "Invalid category selected");
@@ -88,6 +88,21 @@ async function editTransaction(req, res) {
         const type = await transactionTypeModel.findOne({ name: transactionType });
         if (!type) {
             req.flash("error", "Invalid transaction type");
+            return res.redirect("/transaction");
+        }
+
+        const old = await transactionModel.findById(transId);
+        if (!old) {
+            return res.redirect("/transaction");
+        }
+
+        const nothingChanged =
+            Number(amount) === Number(old.amount) &&
+            categoryId == old.categoryId.toString() &&
+            type._id.toString() === old.transactionTypeId.toString() &&
+            (description || "") === (old.description || "");
+            
+        if (nothingChanged) {
             return res.redirect("/transaction");
         }
 
@@ -115,4 +130,4 @@ async function editTransaction(req, res) {
         return res.redirect("/transaction");
     }
 }
-export default { addTransaction, deleteTransaction,editTransaction }
+export default { addTransaction, deleteTransaction, editTransaction }
