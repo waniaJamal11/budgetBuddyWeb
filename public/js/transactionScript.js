@@ -2,6 +2,7 @@
 // Category selection
 const categoryItems = document.querySelectorAll(".category-item");
 const categoryInput = document.getElementById("categoryId");
+const typeInput = document.getElementById("transactionType");
 
 if (categoryItems.length > 0) {
   categoryItems[0].classList.add("active");
@@ -13,20 +14,21 @@ categoryItems.forEach(item => {
     categoryItems.forEach(i => i.classList.remove("active"));
     item.classList.add("active");
     categoryInput.value = item.dataset.id;
+      typeInput.value = card.dataset.type;
   });
 });
 
-// Transaction type selection
-const typeCards = document.querySelectorAll(".type-card");
-const typeInput = document.getElementById("transactionType");
+// // Transaction type selection
+// const typeCards = document.querySelectorAll(".type-card");
 
-typeCards.forEach(card => {
-  card.addEventListener("click", () => {
-    typeCards.forEach(c => c.classList.remove("active"));
-    card.classList.add("active");
-    typeInput.value = card.dataset.type;
-  });
-});
+// typeCards.forEach(card => {
+//   card.addEventListener("click", () => {
+//     typeCards.forEach(c => c.classList.remove("active"));
+//     card.classList.add("active");
+//     typeInput.value = card.dataset.type;
+//   });
+// });
+
 
 // ---------------- Transaction Type Dropdown ----------------
 function selectType(value, el) {

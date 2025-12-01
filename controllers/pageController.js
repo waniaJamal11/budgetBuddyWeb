@@ -187,6 +187,18 @@ async function profilePage(req, res) {
         console.log(`Error loading profile setting page: ${error.message}`);
     }
 }
+async function forgetPasswordPage(req, res) {
+    try {
+        return res.render("userPage/forgetPassword", {
+            emailExists: false, 
+            email: ""
+        });
+    }
+    catch (error) {
+        console.log(`Error loading forget password page: ${error.message}`);
+    }
+}
+
 
 
 export default {
@@ -195,5 +207,4 @@ export default {
     dashboardPage,
     categoryPage,
     transactionPage,
-    addTransactionPage, profilePage
-}
+    addTransactionPage, profilePage, forgetPasswordPage}

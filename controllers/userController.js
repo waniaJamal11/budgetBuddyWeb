@@ -14,19 +14,21 @@ async function signUp(req, res) {
         for (let key in feilds) {
             if (!feilds[key]) {
                 req.flash("error", `${key} is required`);
+                req.flash("formData", req.body);
                 return res.redirect("/signup");
-
             }
         }
         //match pass and confirmpass
         if (password !== confirmPassword) {
             req.flash("error", "Password and Confirm Password do not match");
+            req.flash("formData", req.body);
             return res.redirect("/signup");
         }
         //check email exist already or not
         const existing = await userModel.findOne({ email });
         if (existing) {
             req.flash("error", "Email already registered");
+            req.flash("formData", req.body);
             return res.redirect("/signup");
         }
         //encrypt pass
@@ -53,21 +55,31 @@ async function signUp(req, res) {
 async function login(req, res) {
     try {
         const { email, password } = req.body;
-        //check fields are empty
-        if (!email || !password) {
-            req.flash("error", "Email and Password are required");
-            return res.redirect("/");
+
+        const feilds = {
+            Email: email?.trim(),
+            Password: password,
+        };
+        for (let key in feilds) {
+            if (!feilds[key]) {
+                req.flash("error", `${key} is required`);
+                req.flash("formData", req.body);
+                return res.redirect("/");
+
+            }
         }
         //check email
         const user = await userModel.findOne({ email });
         if (!user) {
             req.flash("error", "Invalid Email or Password");
+            req.flash("formData", req.body);
             return res.redirect("/");
         }
         //check pass
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
             req.flash("error", "Invalid Email or Password");
+            req.flash("formData", req.body);
             return res.redirect("/");
         }
         //loign
@@ -161,12 +173,56 @@ async function profile(req, res) {
         return res.redirect("/profileSetting");
     }
 }
+async function forgetPass(req, res) {
+    try {
+        const { email, password, confirmPassword } = req.body;
 
+        // Step 1: Only email submitted → Check if exists
+        if (!password && !confirmPassword) {
 
+            const user = await userModel.findOne({ email });
+
+            if (!user) {
+                req.flash("error", "Email not found!");
+                req.flash("formData", req.body);
+                return res.redirect("/forgetPassword");
+            }
+
+            // Email exists → show password fields
+          //  req.flash("formData", req.body);
+
+            return res.render("userPage/forgetPassword", {
+                emailExists: true,
+                formData: { email },
+            });
+
+        }
+
+        // Step 2: Password submitted → Update password
+        if (password !== confirmPassword) {
+            req.flash("error", "Passwords do not match!");
+            req.flash("formData", req.body);
+            return res.redirect("/forgetPassword");
+        }
+
+        const hash = await bcrypt.hash(password, 10);
+
+        await userModel.findOneAndUpdate({ email }, { password: hash });
+
+        req.flash("success", "Password updated! Login now.");
+        return res.redirect("/");
+
+    } catch (error) {
+        console.log("Forget Password Error:", error);
+        req.flash("error", "Something went wrong!");
+        return res.redirect("/forgot-password");
+    }
+}
 
 export default {
     signUp,
     login,
     logout,
-    profile
+    profile,
+    forgetPass
 };

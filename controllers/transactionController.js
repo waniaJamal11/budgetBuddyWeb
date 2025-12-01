@@ -16,16 +16,18 @@ async function addTransaction(req, res) {
             req.flash("error", "Please fill all required feilds");
             return res.redirect("/addTransaction");
         }
-        const category = await categoryModel.findOne({ _id: categoryId, userId });
+
+          // Get category with its transactionType populated
+        const category = await categoryModel
+            .findOne({ _id: categoryId, userId })
+            .populate("transactionType");
+
         if (!category) {
             req.flash("error", "Invalid category selection.");
             return res.redirect("/addTransaction");
         }
-        const type = await transactionTypeModel.findOne({ name: transactionType });
-        if (!type) {
-            req.flash("error", "Invalid transaction type.");
-            return res.redirect("/addTransaction");
-        }
+       const type = await transactionTypeModel.findById(category.transactionType);
+
         const newTransaction = new transactionModel({
             userId,
             categoryId,
