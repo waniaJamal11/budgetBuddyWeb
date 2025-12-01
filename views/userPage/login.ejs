@@ -34,7 +34,7 @@
         <form action="/loginUser" method="post" class="w-100" style="max-width: 400px; margin: auto;">
           <div class="mb-3">
             <input type="email" name="email" class="form-control w-85 mx-auto py-2 rounded-pill border-0 shadow-sm"
-              placeholder="Email">
+              placeholder="Email" value="<%=formData.email%>">
           </div>
           <div class="mb-3 position-relative w-85 mx-auto">
             <input type="password" name="password" id="passwordInput"
@@ -42,6 +42,9 @@
             <i class="bi bi-eye-slash" id="togglePassword"
               style="position: absolute;right: 20px;top: 50%;transform: translateY(-50%);cursor: pointer;font-size: 1.1rem;color: #da6220; ">
             </i>
+          </div>
+          <div class="w-85 mx-auto d-flex justify-content-end mb-3">
+            <a href="/forgetPassword" class="anchorText text-decoration-none small fw-semibold">Forget Password</a>
           </div>
           <button type="submit"
             class="btn btn-primary rounded-pill py-2 px-5 fw-semibold shadow-sm hover-grow">Login</button>
@@ -51,8 +54,15 @@
         </form>
       </div>
     </div>
-      <script src="/js/script.js"></script>
+    <script src="/js/script.js"></script>
     <script src="/js/userScript.js"></script>
+    <script>
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+    </script>
+
 </body>
 
 </html>

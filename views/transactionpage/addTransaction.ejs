@@ -16,14 +16,19 @@
   <%- include("../partials/flashMessages") %>
     <div class="transaction-bg ">
       <main class="container py-5 px-5 rounded-4">
+          <p class="text-light  small">
+          <i class="bi bi-arrow-left"></i>
+          <a href="/dashboard" class=" text-decoration-none"> Back to dashboard</a>
+        </p>
         <div class="transaction-header mb-4 text-center">
           <h2 class="fw-bold headingtransaction">
             <i class="bi bi-wallet2 me-2"></i> Add Transaction
           </h2>
         </div>
+        
         <form id="transactionForm" action="/newTransaction" method="POST">
           <div class="row g-4">
-            <div class="col-md-7">
+            <div class="col-md-12">
               <div class="amount-inline mt-5 mb-4">
                 <label for="amount" class="amount-label mb-1">Enter transaction amount here:</label>
                 <input type="number" name="amount" id="amount" class="form-control" style="color: #fff;" />
@@ -33,7 +38,8 @@
               <div class="category-section mb-4">
                 <% if (categories && categories.length> 0) { %>
                   <% categories.forEach(category=> { %>
-                    <div class="category-item" data-id="<%= category._id %>">
+                    <div class="category-item" data-id="<%= category._id %>"
+                      data-type="<%= category.transactionType.name %>">
                       <span>
                         <%= category.name %>
                       </span>
@@ -50,12 +56,17 @@
                           </div>
               </div>
               <input type="hidden" name="categoryId" id="categoryId" />
+              <input type="hidden" name="transactionType" id="transactionType" value="Income" />
 
+              <label class="fs-5 typehead mb-2 mt-5">Description</label>
+              <div class="description-box mb-4">
+                <textarea rows="4" name="description" placeholder="Write details about this transaction..."></textarea>
+              </div>
             </div>
-            <div class="col-md-5">
-              <label class="typehead mb-3 mt-5">Transaction Type</label>
+            <!-- <div class="col-md-5"> -->
+            <!-- <label class="typehead mb-3 mt-5">Transaction Type</label>
               <div class="type-toggle mb-4">
-                <div class="type-card income active" data-type="Income">
+                <div class="type-card income" data-type="Income">
                   <i class="bi bi-arrow-up-circle-fill"></i>
                   <span>Income</span>
                 </div>
@@ -63,14 +74,9 @@
                   <i class="bi bi-arrow-down-circle-fill"></i>
                   <span>Expense</span>
                 </div>
-              </div>
-              <input type="hidden" name="transactionType" id="transactionType" value="Income" />
+              </div> -->
 
-              <label class="fs-5 typehead mb-2 mt-3">Description</label>
-              <div class="description-box mb-4">
-                <textarea rows="4" name="description" placeholder="Write details about this transaction..."></textarea>
-              </div>
-            </div>
+            <!-- </div> -->
           </div>
           <div class="text-center mt-3">
             <button type="submit" class="save-btn">
@@ -78,17 +84,18 @@
             </button>
           </div>
         </form>
-
-        <p class="text-light mt-4 small">
-          <i class="bi bi-arrow-left"></i>
-          <a href="/dashboard" class=" text-decoration-none"> Back to dashboard</a>
-        </p>
       </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/transactionScript.js"></script>
+    <script>
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+    </script>
 
 </body>
 

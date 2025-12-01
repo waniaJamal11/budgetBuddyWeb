@@ -31,6 +31,7 @@ main.container {
   padding: 40px 35px;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
   color: #fff;
+  width: 70%;
 }
 
 .headingtransaction {
@@ -72,7 +73,7 @@ main.container {
   max-height: 200px; /* set height limit */
   overflow-y: auto;  /* enables scroll when content overflows */
   padding-right: 5px;
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
